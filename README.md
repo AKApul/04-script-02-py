@@ -44,12 +44,24 @@ for result in result_os.split('\n'):
 
 ### Ваш скрипт:
 ```python
-???
+#!/usr/bin/env python3
+
+import os
+
+bash_command = ["cd ~/netology/sysadm-homeworks", "git status"]
+result_os = os.popen(' && '.join(bash_command)).read()
+pwd = os.popen('pwd').read().replace('\n','')
+for result in result_os.split('\n'):
+    if result.find('modified') != -1:
+        prepare_result = result.replace('\tmodified:   ','')
+        print(pwd+'/'+prepare_result)
 ```
 
 ### Вывод скрипта при запуске при тестировании:
 ```
-???
+/home/vagrant/netology/sysadm-homeworks/file01
+/home/vagrant/netology/sysadm-homeworks/file03
+/home/vagrant/netology/sysadm-homeworks/script01.py
 ```
 
 ## Обязательная задача 3
