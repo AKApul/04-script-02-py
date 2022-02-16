@@ -59,6 +59,7 @@ for result in result_os.split('\n'):
 
 ### Вывод скрипта при запуске при тестировании:
 ```
+vagrant@vagrant:~/netology/sysadm-homeworks$ python3 script01.py
 /home/vagrant/netology/sysadm-homeworks/file01
 /home/vagrant/netology/sysadm-homeworks/file03
 /home/vagrant/netology/sysadm-homeworks/script01.py
@@ -69,12 +70,35 @@ for result in result_os.split('\n'):
 
 ### Ваш скрипт:
 ```python
-???
+#!/usr/bin/env python3
+
+import os
+import sys
+
+if len(sys.argv)==1:
+    bash_command = ["cd ~/netology/sysadm-homeworks", "git status"]
+    result_os = os.popen(' && '.join(bash_command)).read()
+    pwd = os.popen('pwd').read().replace('\n','')
+    for result in result_os.split('\n'):
+        if result.find('modified') != -1:
+            prepare_result = result.replace('\tmodified:   ','')
+            print(pwd+'/'+prepare_result)
+
+if len(sys.argv)==2:
+    bash_command = ["cd "+sys.argv[1], "git status"]
+    result_os = os.popen(' && '.join(bash_command)).read()
+    for result in result_os.split('\n'):
+        if result.find('modified') != -1:
+            prepare_result = result.replace('\tmodified:   ','')
+            print(sys.argv[1]+'/'+prepare_result)
 ```
 
 ### Вывод скрипта при запуске при тестировании:
 ```
-???
+vagrant@vagrant:~$ python3 script02.py /home/vagrant/0402
+/home/vagrant/0402/file01
+/home/vagrant/0402/file03
+/home/vagrant/0402/script01.py
 ```
 
 ## Обязательная задача 4
